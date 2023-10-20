@@ -12,9 +12,26 @@
     canvas {
       cursor: grab;
     }
+    canvas[data-mode="move"] {
+      cursor: grab;
+    }
+    canvas[data-mode="rotate"] {
+      cursor: all-scroll;
+    }
+    canvas[data-mode="scale"] {
+      cursor: ns-resize;
+    }
+    aside {
+      position: absolute;
+    }
   </style>
 </head>
 <body>
+  <aside>
+    <button class="move">Move</button>
+    <button class="rotate">Rotate</button>
+    <button class="scale">Scale</button>
+  </aside>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

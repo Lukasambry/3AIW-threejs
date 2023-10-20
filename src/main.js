@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { TransformControls } from 'three/addons/controls/TransformControls.js';
+
 
 function initScene() {
   const scene = new THREE.Scene()
@@ -27,24 +29,56 @@ function intRenderer() {
 }
 
 function addCude() {
-  const cube = new THREE.BoxGeometry(1, 1, 1);
+  const geo = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshBasicMaterial({ color: 0x69bdd7 });
-  return new THREE.Mesh(cube, material);
+  const cube = new THREE.Mesh(geo, material);
+
+  scene.add(cube);
+  transformControl.attach(cube);
 }
 
 function initControls() {
   const orbitControl = new OrbitControls(camera, renderer.domElement);
   orbitControl.update();
 
-  return { orbitControl };
+  const transformControl = new TransformControls(camera, renderer.domElement);
+  transformControl.addEventListener('mouseDown', () => orbitControl.enabled = false);
+  transformControl.addEventListener('mouseUp', () => orbitControl.enabled = true);
+
+  const controlButtons = document.querySelectorAll('aside button');
+  const canvas = document.querySelector('canvas');
+  controlButtons.forEach((button) => {
+    switch(button.className) {
+      case 'move':
+        button.addEventListener('click', () => {
+          canvas.dataset.mode = 'translate';
+          transformControl.setMode('translate')}
+        );
+        break;
+      case 'rotate':
+        button.addEventListener('click', () => {
+          canvas.dataset.mode = 'rotate';
+          transformControl.setMode('rotate')}
+        );
+        break;
+      case 'scale':
+        button.addEventListener('click', () => {
+          canvas.dataset.mode = 'scale';
+          transformControl.setMode('scale')}
+        );
+        break;
+    }
+  });
+
+  scene.add(transformControl);
+  return { orbitControl, transformControl };
 }
 
 const { scene, renderer } = initScene();
 
 const camera = initCamera();
+const { transformControl } = initControls();
 
-const cube = addCude();
-scene.add(cube);
+addCude();
 
 intRenderer();
-initControls();

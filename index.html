@@ -5,12 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Three.js editor</title>
   <style>
-    html, body {
+    html, body, h1 {
       margin: 0;
       padding: 0;
     }
+    body {
+      color: #fff;
+      background-color: #1D1D1D;
+      font-family: sans-serif;
+      height: 600vh;
+    }
+    header {
+      margin-top: 2rem;
+    }
+    section {
+      position: relative;
+      z-index: 1;
+      margin-inline: 5rem;
+    }
+    section, main {
+      height: 100%;
+    }
+    .end {
+      position: absolute;
+      bottom: 4rem;
+      z-index: 1;
+    }
     canvas {
+      position: fixed;
+      top: 0;
+      right: 0;
       cursor: grab;
+      z-index: 0;
     }
     canvas[data-mode="move"] {
       cursor: grab;
@@ -27,11 +53,16 @@
   </style>
 </head>
 <body>
-  <aside>
-    <button class="move">Move</button>
-    <button class="rotate">Rotate</button>
-    <button class="scale">Scale</button>
-  </aside>
+  <section>
+    <header>
+      <h1>👋🏿 Hello there</h1>
+    </header>
+    <main>
+      <p>Do tempor ut est id ex culpa proident exercitation in voluptate. Pariatur voluptate fugiat laboris aliquip tempor nulla. Irure velit velit ullamco exercitation nisi aliqua id veniam elit aliquip non. Elit proident sunt culpa fugiat eu consequat ex minim. Proident cillum aute ipsum mollit aute.</p>
+
+      <p class="end">Hello is it the end of my website</p>
+    </main>
+  </section>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
